@@ -4,7 +4,8 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { Send, X } from "lucide-react";
 
-type Message = { text: string; user?: boolean; href?: string; label?: string };
+type Citation = { id: string; title: string; snippet: string; href: string; meta: string };
+type Message = { text: string; user?: boolean; href?: string; label?: string; citations?: Citation[] };
 
 const GREETING: Message = {
   text: "Hi, I’m AIRA. Ask me about azentio.ai, our products, capabilities, or how to explore the website.",
@@ -49,10 +50,22 @@ export function Aira() {
     if (open) inputRef.current?.focus();
   }, [open]);
 
-  const send = (text: string) => {
+  const send = async (text: string) => {
     if (!text.trim()) return;
-    setMessages((m) => [...m, { text, user: true }, answer(text)]);
+    setMessages((m) => [...m, { text, user: true }]);
     setDraft("");
+    // Signed-in users get permission-filtered retrieval with citations; visitors get site-content answers.
+    try {
+      const res = await fetch("/api/aira", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ question: text }) });
+      if (res.ok) {
+        const data = (await res.json()) as { answer: string; citations: Citation[] };
+        setMessages((m) => [...m, { text: data.answer, citations: data.citations }]);
+        return;
+      }
+    } catch {
+      // fall through to public mode
+    }
+    setMessages((m) => [...m, answer(text)]);
   };
 
   return (
@@ -86,6 +99,12 @@ export function Aira() {
             {messages.map((m, i) => (
               <div key={i} className={m.user ? "assistant-message user" : "assistant-message"}>
                 <p>{m.text}</p>
+                {m.citations?.map((c) => (
+                  <Link key={c.id} href={c.href} onClick={() => setOpen(false)} style={{ display: "block", marginTop: 8 }}>
+                    <strong>{c.title}</strong>
+                    <span style={{ display: "block", fontSize: 12, opacity: 0.75 }}>{c.meta}</span>
+                  </Link>
+                ))}
                 {m.href && (
                   <Link href={m.href} onClick={() => setOpen(false)}>
                     {m.label}
@@ -99,7 +118,7 @@ export function Aira() {
             className="assistant-form"
             onSubmit={(e) => {
               e.preventDefault();
-              send(draft);
+              void send(draft);
             }}
           >
             <input ref={inputRef} value={draft} onChange={(e) => setDraft(e.target.value)} placeholder="Ask AIRA…" aria-label="Message AIRA" maxLength={300} />

@@ -82,3 +82,19 @@ test("Unapproved @azentio.com account gets no workspace", async ({ page }) => {
   await signIn(page, "newhire@azentio.com");
   await expect(page.getByText("No workspace yet")).toBeVisible();
 });
+
+test("A12: AIRA never returns employee-only content to clients; employees can retrieve it", async ({ page }) => {
+  const ask = async () =>
+    (await (await page.request.post("/api/aira", { data: { question: "prototype notes workbench" } })).json()) as { citations?: { title: string }[] };
+
+  expect((await page.request.post("/api/aira", { data: { question: "prototype notes" } })).status()).toBe(401);
+
+  await signIn(page, "cora@eastgate.example");
+  const client = await ask();
+  expect((client.citations ?? []).map((c) => c.title).join(" ")).not.toContain("Internal");
+  await signOut(page);
+
+  await signIn(page, "alex.employee@azentio.com");
+  const employee = await ask();
+  expect((employee.citations ?? []).map((c) => c.title)).toContain("Internal: prototype notes for SME Workbench v0.4");
+});

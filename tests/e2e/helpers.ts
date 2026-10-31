@@ -21,6 +21,8 @@ async function latestCode(email: string, after: number): Promise<string> {
 /** Real email-OTP sign-in through the UI. */
 export async function signIn(page: Page, email: string, next = "/portal") {
   await page.goto(`/sign-in?next=${encodeURIComponent(next)}`);
+  // Supabase enforces a minimum interval between emails to the same user (auth.email.max_frequency).
+  await page.waitForTimeout(1200);
   const started = Date.now();
   await page.getByLabel("Work email").fill(email);
   await page.getByRole("button", { name: "Email me a sign-in code" }).click();
