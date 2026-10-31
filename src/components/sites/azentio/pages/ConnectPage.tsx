@@ -1,3 +1,5 @@
+import { PublicForm } from "../PublicForm";
+import { submitDemoRequest } from "@/server/public/actions";
 export function ConnectPage() {
   return (
     <>
@@ -28,7 +30,7 @@ export function ConnectPage() {
       Tell us what you&apos;re exploring. We can discuss product capabilities, integration considerations, and opportunities to collaborate.
       </p>
       </div>
-      <form className="contact-form">
+      <PublicForm className="contact-form" action={submitDemoRequest}>
       <label>
       I&apos;m interested in
       <select name="interest" required>
@@ -73,9 +75,9 @@ export function ConnectPage() {
       </svg>
       </button>
       <p className="form-note" role="status">
-      Demo form only. No data is collected or transmitted.
+      Synthetic hackathon environment: your request is stored for the demo; no email is sent.
       </p>
-      </form>
+      </PublicForm>
       </section>
     </>
   );

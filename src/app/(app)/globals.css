@@ -5,6 +5,10 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
+  --color-navy: var(--navy);
+  --color-green: var(--green);
+  --color-green-ink: var(--green-ink);
+  --color-warning: var(--warning);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: Arial, Helvetica, ui-sans-serif, system-ui, sans-serif;
@@ -49,38 +53,43 @@
 }
 
 :root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --radius: 0.625rem;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  /* azentio.ai tokens (DESIGN.md §1) */
+  --navy: #171b3a;
+  --green: #69d393;
+  --green-ink: #247447;
+  --warning: #b54708;
+  --background: #f5f7f9;
+  --foreground: #102031;
+  --card: #ffffff;
+  --card-foreground: #102031;
+  --popover: #ffffff;
+  --popover-foreground: #102031;
+  --primary: #69d393;
+  --primary-foreground: #122015;
+  --secondary: #eef1f5;
+  --secondary-foreground: #171b3a;
+  --muted: #eef1f5;
+  --muted-foreground: #546273;
+  --accent: #eef1f5;
+  --accent-foreground: #171b3a;
+  --destructive: #b42318;
+  --border: #dde3ed;
+  --input: #d2d8e2;
+  --ring: #247447;
+  --chart-1: #69d393;
+  --chart-2: #247447;
+  --chart-3: #171b3a;
+  --chart-4: #607080;
+  --chart-5: #b54708;
+  --radius: 0.5rem;
+  --sidebar: #171b3a;
+  --sidebar-foreground: #e6edf5;
+  --sidebar-primary: #69d393;
+  --sidebar-primary-foreground: #122015;
+  --sidebar-accent: #ffffff14;
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: #ffffff1f;
+  --sidebar-ring: #69d393;
 }
 
 .dark {

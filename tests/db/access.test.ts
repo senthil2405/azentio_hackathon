@@ -233,3 +233,20 @@ describe("Reviewer notes — moderators only", () => {
     expect((await ana.rpc("moderation_private_notes", { p_contribution: c!.id })).error?.message).toBe("forbidden");
   });
 });
+
+describe("Regression — membership policies", () => {
+  it("users can read their own memberships with organisation names (no policy recursion)", async () => {
+    const c = await signIn(EMAIL.consultant);
+    const { data, error } = await c.from("memberships").select("org_id, organisations(name)");
+    expect(error).toBeNull();
+    expect(data).toHaveLength(2);
+  });
+  it("a client admin sees fellow members of the active org only; a member sees only themselves", async () => {
+    const carl = await signIn(EMAIL.carlAdmin, ORG.northbank);
+    const { data: all } = await carl.from("memberships").select("user_id, org_id");
+    expect(new Set(all!.map((m) => m.org_id))).toEqual(new Set([ORG.northbank]));
+    expect(all!.length).toBeGreaterThan(1);
+    const ana = await signIn(EMAIL.ana, ORG.northbank);
+    expect((await ana.from("memberships").select("user_id")).data).toHaveLength(1);
+  });
+});

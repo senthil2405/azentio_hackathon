@@ -1,3 +1,5 @@
+import { PublicForm } from "../PublicForm";
+import { submitHackathonRegistration } from "@/server/public/actions";
 export function HackathonRegisterPage() {
   return (
     <>
@@ -15,7 +17,7 @@ export function HackathonRegisterPage() {
       </div>
       </section>
       <section className="section container">
-      <form className="contact-form config-form">
+      <PublicForm className="contact-form config-form" action={submitHackathonRegistration}>
       <label>
       Your name
       <input autoComplete="name" required minLength={2} maxLength={100} name="name" />
@@ -38,7 +40,7 @@ export function HackathonRegisterPage() {
       <button className="btn">
       Register interest →
       </button>
-      </form>
+      </PublicForm>
       </section>
     </>
   );
