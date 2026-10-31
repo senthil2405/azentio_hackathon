@@ -1,6 +1,8 @@
 import type { NextConfig } from "next";
 
 const isDev = process.env.NODE_ENV !== "production";
+// HTTPS-only directives apply on the real deployment (Vercel), not on local/LAN http testing.
+const isHttpsDeploy = Boolean(process.env.VERCEL);
 
 // Content Security Policy. 'unsafe-inline' for scripts is a documented trade-off: per-request nonces would
 // make every public page dynamic (losing CDN/static cost and latency benefits). There are no HTML injection
@@ -18,7 +20,7 @@ const csp = [
   "form-action 'self'",
   "base-uri 'self'",
   "object-src 'none'",
-  ...(isDev ? [] : ["upgrade-insecure-requests"]),
+  ...(isHttpsDeploy ? ["upgrade-insecure-requests"] : []),
 ].join("; ");
 
 const securityHeaders = [
@@ -27,8 +29,8 @@ const securityHeaders = [
   { key: "X-Content-Type-Options", value: "nosniff" },
   { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
   { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=(), payment=()" },
-  { key: "Strict-Transport-Security", value: "max-age=63072000; includeSubDomains; preload" },
-  { key: "Cross-Origin-Opener-Policy", value: "same-origin" },
+  ...(isHttpsDeploy ? [{ key: "Strict-Transport-Security", value: "max-age=63072000; includeSubDomains; preload" }] : []),
+  ...(isHttpsDeploy ? [{ key: "Cross-Origin-Opener-Policy", value: "same-origin" }] : []),
 ];
 
 const nextConfig: NextConfig = {
