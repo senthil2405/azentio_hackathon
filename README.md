@@ -50,6 +50,9 @@ SUPABASE_SERVICE_ROLE_KEY=<SERVICE_ROLE_KEY>
 | `dev.consultant@advisory.example` | Member of Northbank **and** Meridian (workspace switcher) |
 | `outsider@random.example` | No membership |
 
+## Demo video
+[`docs/demo/azentio-demo.mp4`](docs/demo/azentio-demo.mp4) is a 92-second captioned walkthrough of the script below, recorded with `node scripts/record-demo.mjs` against a fresh seed.
+
 ## Demo script for judges (the PDF's illustrative scenario)
 1. **Moderator** (`maya.moderator@…`) opens **Moderation**. Three seasonal-SME observations are waiting, one flagged as containing a phone number.
 2. Publish each one with a coarse region (e.g. *South Asia*) and period, and remove the phone number. Request clarification on one to show the *Returned* path.
