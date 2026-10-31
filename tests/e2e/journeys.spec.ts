@@ -98,3 +98,13 @@ test("A12: AIRA never returns employee-only content to clients; employees can re
   const employee = await ask();
   expect((employee.citations ?? []).map((c) => c.title)).toContain("Internal: prototype notes for SME Workbench v0.4");
 });
+
+test("Security headers are present on public and portal responses", async ({ request }) => {
+  for (const path of ["/", "/sign-in"]) {
+    const h = (await request.get(path)).headers();
+    expect(h["content-security-policy"], path).toContain("frame-ancestors 'none'");
+    expect(h["x-frame-options"], path).toBe("DENY");
+    expect(h["x-content-type-options"], path).toBe("nosniff");
+    expect(h["x-powered-by"], path).toBeUndefined();
+  }
+});
