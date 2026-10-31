@@ -62,6 +62,7 @@ jobs:
         run: |
           npx supabase status -o env | grep -E '^(API_URL|ANON_KEY|SERVICE_ROLE_KEY)=' \
             | sed -e 's/^API_URL=/NEXT_PUBLIC_SUPABASE_URL=/' -e 's/^ANON_KEY=/NEXT_PUBLIC_SUPABASE_ANON_KEY=/' -e 's/^SERVICE_ROLE_KEY=/SUPABASE_SERVICE_ROLE_KEY=/' > .env.local
+          echo "DEMO_MODE=on" >> .env.local   # E2E covers the demo persona switcher
 
       - name: Database access tests (RLS + workflows)
         run: npm run test:db
