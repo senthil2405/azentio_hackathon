@@ -48,5 +48,7 @@
 - **S3** Add the AIRA widget inside the portal shell (currently on the public site, which shares the session).
 - **S4** Theme filters on the feed: add differencing protection if counts per filter are ever exposed (currently per-item only).
 
+- **B6** Turn off `DEMO_MODE` (the one-click persona switcher) for any non-demo deployment.
+
 ## Production propagation SLA (statement)
 Withdrawal and unpublishing are applied **synchronously in the same database transaction** as the user's action. Search, theme evidence, idea evidence and AIRA retrieval read only `shared_representations`, so the item is gone on the next request (target: well under the 60 s required). Shared-learning pages are rendered dynamically with `Cache-Control: private, no-store`, so no CDN copy exists. **Production SLA: 60 seconds** (approved by the project owner). Material already viewed, screenshotted or copied by others cannot be recalled, and the UI says so.

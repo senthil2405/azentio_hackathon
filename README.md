@@ -32,7 +32,7 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=<ANON_KEY>
 SUPABASE_SERVICE_ROLE_KEY=<SERVICE_ROLE_KEY>
 ```
 
-**Signing in:** go to `/sign-in`, enter a persona email, then read the 6-digit code from the local inbox at **http://localhost:54324** (Mailpit).
+**Signing in:** with `DEMO_MODE=on`, `/sign-in` shows a labelled one-click switcher for the 12 synthetic personas (judging only; allow-listed, rate-limited, logged). Otherwise enter a persona email and read the 6-digit code from the local inbox at **http://localhost:54324** (Mailpit). Set `DEMO_MODE=off` (or remove it) for any real deployment.
 
 ### Personas (synthetic)
 | Email | Role |

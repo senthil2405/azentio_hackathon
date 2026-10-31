@@ -108,3 +108,12 @@ test("Security headers are present on public and portal responses", async ({ req
     expect(h["x-powered-by"], path).toBeUndefined();
   }
 });
+
+test("Demo mode: one-click synthetic persona sign-in lands in the right workspace", async ({ page }) => {
+  await page.goto("/sign-in");
+  await expect(page.getByText("Demo mode · synthetic personas only")).toBeVisible();
+  await page.getByRole("button", { name: /Client administrator · Northbank/ }).click();
+  await page.waitForURL("**/portal");
+  await expect(page.getByText("Northbank Lending (synthetic)").first()).toBeVisible();
+  await expect(page.getByRole("link", { name: "Members & invitations" })).toBeVisible();
+});
