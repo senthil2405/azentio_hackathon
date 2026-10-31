@@ -1,154 +1,108 @@
-<div align="center">
+# azentio.ai: website and intelligent collaboration portal
 
-# AI Website Cloner Template
+Hackathon build for *Website & Intelligent Collaboration Portal* (Build Requirements v1.0). It includes:
+- A public website ported from the reference prototype.
+- A secure portal for employees and clients.
+- A governed workflow that turns client market observations into de-identified shared learning, themes and improvement ideas.
 
-### Clone any website with one command
+**All data is synthetic.**
 
-Give your AI coding agent a URL and watch it recreate the website as a clean Next.js app.
+| | |
+|---|---|
+| Stack | Next.js 16 (App Router) · TypeScript · Tailwind v4 · Supabase (Postgres + RLS, email-OTP auth, pgvector-ready) · Vercel-ready |
+| Status | P0 complete. AIRA in retrieval mode (P1). Federated-learning demo in [`fl/`](fl/) (P2) |
+| Readiness | [`.readiness-audit/report.md`](.readiness-audit/report.md): **SHIP** for judging, **HOLD** for real production (blockers listed) |
+| Governing docs | [constitution](.specify/memory/constitution.md) · [spec](specs/001-portal-p0/spec.md) · [architecture](specs/001-portal-p0/plan.md) · [threat model](THREAT_MODEL.md) · [design system](DESIGN.md) |
 
-**Best results with [Claude Code](https://docs.anthropic.com/en/docs/claude-code) + Opus 5.5. Also supports Codex, Cursor, and OpenCode.**
+## Run it locally (about 5 minutes)
 
-[![Use this template](https://img.shields.io/badge/Use_this_template-Create_your_copy-2ea44f?style=for-the-badge&logo=github&logoColor=white)](https://github.com/JCodesMore/ai-website-cloner-template/generate) [![Discord](https://img.shields.io/badge/Join_the_community-Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/hrTSX5yTpB)
-
-[Quick Start](#quick-start) · [Watch Demo](#demo) · [Supported Platforms](#supported-platforms)
-
-<a href="https://github.com/JCodesMore/ai-website-cloner-template/blob/master/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue" alt="MIT License" /></a> <a href="https://github.com/JCodesMore/ai-website-cloner-template"><img src="https://img.shields.io/github/stars/JCodesMore/ai-website-cloner-template?style=flat" alt="Stars" /></a> <img src="https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/JCodesMore/ai-website-cloner-template/badges/token-badge.json" alt="tokens" />
-
-  <a href="https://trendshift.io/repositories/24302?utm_source=repository-badge&amp;utm_medium=badge&amp;utm_campaign=badge-repository-24302" target="_blank" rel="noopener noreferrer"><img src="https://trendshift.io/api/badge/repositories/24302" alt="JCodesMore%2Fai-website-cloner-template | Trendshift" width="250" height="55" /></a> <a href="https://www.star-history.com/jcodesmore/ai-website-cloner-template/"><picture><source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/badge?repo=JCodesMore/ai-website-cloner-template&amp;theme=dark" /><source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/badge?repo=JCodesMore/ai-website-cloner-template" /><img alt="Star History Global Rank" src="https://api.star-history.com/badge?repo=JCodesMore/ai-website-cloner-template" width="216" height="55" /></picture></a>
-
-</div>
-
----
-
-## Demo
-
-[![Watch the demo](docs/design-references/comparison.png)](https://youtu.be/O669pVZ_qr0)
-
-> Click the image above to watch the full demo on YouTube.
-
-## Quick Start
-
-### 1. Set up your project
-
-**Recommended: ask your agent.** Paste this into Codex, Claude Code, or your coding agent:
-
-```text
-Set up https://github.com/JCodesMore/ai-website-cloner-template
-as a standalone project in a new folder on my computer.
-Ask me where to put it. Clone the repository, remove its origin remote,
-install dependencies, and run npm run check. Leave it ready for me
-to clone a website.
-```
-
-**Or create your own GitHub repository:**
-
-[![Use this template](https://img.shields.io/badge/Use_this_template-Create_your_copy-2ea44f?style=for-the-badge&logo=github&logoColor=white)](https://github.com/JCodesMore/ai-website-cloner-template/generate)
-
-Give it a name and click **Create repository**. Then give your agent the new repository's link and ask it to clone it onto your computer, install dependencies, and run `npm run check`.
-
-### 2. Clone a website
-
-Open the project in your agent with browser access enabled. In Claude Code or Cursor, run:
-
-```text
-/clone-website https://example.com
-```
-
-Replace the URL with the website you want to recreate. Once it's built, ask your agent for any changes you want.
-
-## Supported Platforms
-
-| Agent                                                         | Status                     |
-| ------------------------------------------------------------- | -------------------------- |
-| [Claude Code](https://docs.anthropic.com/en/docs/claude-code) | **Recommended** — Opus 5.5 |
-| [Codex CLI](https://github.com/openai/codex)                  | Supported                  |
-| [OpenCode](https://opencode.ai/)                              | Supported                  |
-| [Cursor](https://cursor.com/)                                 | Supported                  |
-
-## Prerequisites
-
-- [Node.js](https://nodejs.org/) 24+
-- An AI coding agent (see [Supported Platforms](#supported-platforms))
-
-## Tech Stack
-
-- **Next.js 16** — App Router, React 19, TypeScript strict
-- **shadcn/ui** — Base UI primitives + Tailwind CSS v4
-- **Tailwind CSS v4** — oklch design tokens
-- **Lucide React** — default icons (replaced by extracted SVGs during cloning)
-
-## How It Works
-
-The `/clone-website` skill follows four steps:
-
-1. **Map** — map source URLs to local routes and preserve existing work.
-2. **Observe** — inspect desktop/mobile pages, extract real assets and fonts, and exercise alternate states.
-3. **Build** — implement editable components and working interactions; delegate independent sections when useful.
-4. **Compare** — review source and local pages at matched sizes/states, repair visible differences, and run the production check.
-
-Framer pages and animated sites have focused inspection guidance for responsive variants, media, sticky scenes, and scroll/time-driven motion. Direct HTTP or asset tools handle extraction where practical; browser comparisons establish appearance and behavior. Deliverables include route mappings, run instructions, comparison screenshots, and any remaining gaps.
-
-## Use Cases
-
-- **Platform migration** — rebuild a site you own from WordPress/Webflow/Squarespace into a modern Next.js codebase
-- **Lost source code** — your site is live but the repo is gone, the developer left, or the stack is legacy. Get the code back in a modern format
-- **Learning** — deconstruct how production sites achieve specific layouts, animations, and responsive behavior by working with real code
-
-## Not Intended For
-
-- **Phishing or impersonation** — this project must not be used for deceptive purposes, impersonation, or any activity that breaks the law.
-- **Passing off someone's design as your own** — logos, brand assets, and original copy belong to their owners.
-- **Violating terms of service** — some sites explicitly prohibit scraping or reproduction. Check first.
-
-## Project Structure
-
-```
-src/
-  app/              # Next.js routes
-  components/       # React components
-    ui/             # shadcn/ui primitives
-    sites/<site>/   # Source-specific components and extracted SVGs
-  lib/utils.ts      # cn() utility
-  types/            # TypeScript interfaces
-  hooks/            # Custom React hooks
-public/
-  sites/<site>/     # Source-specific images, fonts, videos, and other assets
-docs/
-  research/<site>/  # Page brief, asset map, and inspection evidence
-  design-references/ # Screenshots
-.agents/skills/
-  clone-website/    # Canonical skill and inspection reference
-.claude/commands/
-  clone-website.md  # Thin Claude Code bridge
-AGENTS.md           # Agent instructions (single source of truth)
-CLAUDE.md           # Claude Code config (imports AGENTS.md)
-```
-
-## Commands
+Prerequisites: Node 24+, Docker Desktop.
 
 ```bash
-npm run dev    # Start dev server
-npm run build  # Production build
-npm run lint   # ESLint check
-npm run typecheck # TypeScript check
-npm run check  # Run lint + typecheck + build
+npm install
+npx supabase start            # Postgres, Auth and Mailpit; applies migrations and synthetic seed
+npx supabase status -o env    # copy API_URL / ANON_KEY / SERVICE_ROLE_KEY into .env.local (see below)
+npm run build && npm start    # http://localhost:3000
 ```
 
-### If using docker
-
-```bash
-docker compose up app --build # build and run the app
-docker compose up dev --build # run the app in dev mode on port 3001
+`.env.local`:
+```
+NEXT_PUBLIC_SUPABASE_URL=http://127.0.0.1:54321
+NEXT_PUBLIC_SUPABASE_ANON_KEY=<ANON_KEY>
+SUPABASE_SERVICE_ROLE_KEY=<SERVICE_ROLE_KEY>
 ```
 
-## Agent Support
+**Signing in:** go to `/sign-in`, enter a persona email, then read the 6-digit code from the local inbox at **http://localhost:54324** (Mailpit).
 
-The project keeps one portable Agent Skill at `.agents/skills/clone-website/`. Codex, Cursor, and OpenCode read it directly. Claude Code uses the small command bridge at `.claude/commands/clone-website.md` so `/clone-website` and its arguments continue to work without exposing a duplicate skill to the other agents.
+### Personas (synthetic)
+| Email | Role |
+|---|---|
+| `alex.employee@azentio.com` | Employee |
+| `maya.moderator@azentio.com` | Employee + learning moderator |
+| `priya.owner@azentio.com` | Employee + product owner |
+| `paul.publisher@azentio.com` | Employee + publisher |
+| `ada.admin@azentio.com` | Employee + portal administrator |
+| `newhire@azentio.com` | Verified domain but **not approved**, so gets no access |
+| `ana@northbank.example` | Client member, Northbank |
+| `carl.admin@northbank.example` | Client administrator, Northbank |
+| `bea@meridian.example` | Client member, Meridian |
+| `cora@eastgate.example` | Client member, Eastgate (no SME sandbox entitlement) |
+| `dev.consultant@advisory.example` | Member of Northbank **and** Meridian (workspace switcher) |
+| `outsider@random.example` | No membership |
 
-## Star History
+## Demo script for judges (the PDF's illustrative scenario)
+1. **Moderator** (`maya.moderator@…`) opens **Moderation**. Three seasonal-SME observations are waiting, one flagged as containing a phone number.
+2. Publish each one with a coarse region (e.g. *South Asia*) and period, and remove the phone number. Request clarification on one to show the *Returned* path.
+3. **Product owner** (`priya.owner@…`): **Themes & ideas → New theme** *"Seasonality context"* with all three items. The theme shows **3 distinct organisations**. With two items it shows *"counts hidden"*.
+4. Create an idea for **Financial Analysis Intelligence**, *"seasonality-aware comparison"*, and set it to **Under review** with a public note.
+5. **Client** (`bea@meridian…`): **Shared learning** shows the de-identified items, **Themes & ideas** shows the theme and the idea's plain-language status. No private drafts, no reviewer notes, no other client's identity.
+6. **Contributor** (`ana@northbank…`): open the published contribution and **Withdraw** it. In Bea's next search it's gone. AIRA no longer cites it either.
+7. Boundaries: as Cora, try `/portal/moderation` or `/portal/playground/sme-credit-decisioning` (404). Signed out, try `/api/media/40000000-0000-4000-d000-000000000001` (404).
 
-![Star History Chart](docs/assets/star-history.png)
+## Architecture
 
-## License
+```mermaid
+flowchart LR
+  B[Browser] -->|HTTPS| N["Next.js 16<br/>RSC · server actions · route handlers"]
+  N -->|"user JWT → RLS"| P[("Postgres<br/>RLS · FTS · pgvector")]
+  N --> A["Supabase Auth<br/>email OTP"]
+  N -->|"authorize → signed URL (300 s)"| S[("Private storage")]
+  N -->|"service role: rate limits, public intake only"| P
+  P -.->|outbox, P1| E["Email provider"]
+  subgraph "Federated learning (P2, isolated)"
+    C1[Client A] --> Co[Coordinator]
+    C2[Client B] --> Co
+    C3[Client C] --> Co
+  end
+```
 
-MIT
+**Two layers of authorization.**
+1. `src/server/authz/policy.ts` decides what to render and which actions to attempt. It's pure and unit-tested.
+2. Postgres RLS plus `SECURITY DEFINER` workflow functions (`supabase/migrations/`) enforce the same rules independently. They also own the state machine, the audit log and the outbox in a single transaction.
+
+```mermaid
+sequenceDiagram
+  participant Au as Author
+  participant App as Next.js
+  participant DB as Postgres
+  Au->>App: Withdraw
+  App->>DB: contribution_author_action(withdraw)
+  DB->>DB: next_state() check · delete shared_representation (cascades: search row, theme & idea evidence, provenance) · consent(publish=false) · moderation_event · audit
+  DB-->>App: withdrawn
+  Note over App,DB: Next read of feed / themes / AIRA cannot see it (same transaction, no shared cache)
+```
+
+## Tests
+| Command | What it proves |
+|---|---|
+| `npm test` | `authorize()` persona matrix, validation mirrors DB constraints, synthetic scenarios are deterministic and caveated |
+| `npm run test:db` | RLS and workflows against a fresh database: tenant isolation, separate grants, invitations, lifecycle, withdrawal, cohort suppression, reviewer-note secrecy |
+| `npm run test:e2e` | Real browser with real email-OTP: illustrative scenario, URL-guessing, AIRA leakage, security headers, accessibility smoke checks |
+
+## Key decisions and honest limitations
+- **Identity:** Entra ID was unavailable, so we use Supabase email OTP. An employee needs a verified `@azentio.com` address **and** an approved employee grant.
+- **AIRA:** retrieval-only. It cites approved items the caller may see and generates no prose. Claude synthesis can be added later over the same citations.
+- **Sensitive-content scan:** heuristic only. It flags content for moderators and is not a privacy guarantee. This is an accepted risk.
+- **Attachments:** omitted in P0. Contributors add links instead (allowed by §07).
+- **Email:** in-app notifications only. Outbox rows stay `queued`, and nothing is ever labelled "delivered".
+- **Federated learning:** a separate, opt-in programme with simulated controls that are labelled as simulated. See [`fl/README.md`](fl/README.md).
