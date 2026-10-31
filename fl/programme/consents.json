@@ -1,0 +1,5 @@
+{
+  "client-northbank": { "trainingConsent": true, "consentedAt": "2026-10-31T09:00:00Z", "withdrawnAt": null, "note": "Separate, opt-in programme consent. Not implied by portal membership or publishing consent." },
+  "client-meridian": { "trainingConsent": true, "consentedAt": "2026-10-31T09:05:00Z", "withdrawnAt": null, "note": "" },
+  "client-eastgate": { "trainingConsent": true, "consentedAt": "2026-10-31T09:10:00Z", "withdrawnAt": null, "note": "" }
+}

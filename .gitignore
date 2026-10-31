@@ -51,3 +51,7 @@ temp/
 # Test artefacts
 /test-results/
 /playwright-report/
+
+# FL: participant datasets stay "local"; registry outputs are regenerable
+/fl/clients/
+/fl/registry/
